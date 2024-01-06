@@ -1,8 +1,8 @@
 import React, { FC, Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-// import { App } from './app';
+import { App } from "./app";
 
 // import { LazyAbout } from '@src/pages/about';
 // import { LazyShop } from '@src/pages/shop';
@@ -14,7 +14,7 @@ const Fallback: FC = () => <div>Подождите...</div>;
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Outlet />,
+    element: <App />,
     children: [
       {
         path: "/about",
