@@ -1,5 +1,4 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-// import ReactBabelRefreshPlugin from 'react-refresh/babel';
 
 import { removeDataTestIdPlugin } from './babel/removeDataTestIdPlugin';
 

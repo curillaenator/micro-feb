@@ -14,15 +14,15 @@ export default (env: EnvVariables) => {
   const config = getWebpackConfig({
     mode: env.mode || 'development',
 
-    port: env.port || 3000,
+    port: env.port || 3001,
 
     // отображать анализатор сборки
     analyze: env.analyze || false,
 
     // набор глоб js переменных
-    define: {
-      __PLATFORM__: 'desktopb',
-    },
+    // define: {
+    //   __PLATFORM__: "desktopb",
+    // },
 
     paths: {
       entry: path.resolve(__dirname, 'src', 'index.tsx'),
@@ -35,12 +35,12 @@ export default (env: EnvVariables) => {
 
   config.plugins.push(
     new webpack.container.ModuleFederationPlugin({
-      name: 'boot',
+      name: 'about',
 
       filename: 'remoteEntry.js',
 
-      remotes: {
-        about: `about@http://localhost:3001/remoteEntry.js`,
+      exposes: {
+        './Router': './src/Router',
       },
 
       shared: {
@@ -57,10 +57,10 @@ export default (env: EnvVariables) => {
           eager: true,
           requiredVersion: dependencies['react-dom'],
         },
-        // 'react-router-dom': {
-        //   eager: true,
-        //   requiredVersion: packageJson.dependencies['react-router-dom'],
-        // },
+        //   'react-router-dom': {
+        //     eager: true,
+        //     requiredVersion: packageJson.dependencies['react-router-dom'],
+        //   },
       },
     }),
   );

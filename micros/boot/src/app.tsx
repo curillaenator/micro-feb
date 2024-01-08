@@ -3,7 +3,7 @@ import { Link, Outlet } from 'react-router-dom';
 
 import styles from './app.module.scss';
 
-export const App: FC = () => {
+export const App: FC = (props) => {
   return (
     <div className={styles.app}>
       <aside className={styles.aside}></aside>

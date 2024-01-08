@@ -48,7 +48,7 @@ export const getWebpackConfig = (options: BuildOptions) => {
       },
     },
 
-    devtool: mode === 'development' ? 'eval-cheap-module-source-map' : 'source-map',
+    devtool: mode === 'development' ? 'source-map' : false,
   };
 
   return config;
