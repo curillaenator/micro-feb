@@ -40,7 +40,7 @@ export default (env: EnvVariables) => {
       filename: 'remoteEntry.js',
 
       exposes: {
-        './Router': './src/Router',
+        './Router': './src/Router.tsx',
       },
 
       shared: {
@@ -57,10 +57,12 @@ export default (env: EnvVariables) => {
           eager: true,
           requiredVersion: dependencies['react-dom'],
         },
-        //   'react-router-dom': {
-        //     eager: true,
-        //     requiredVersion: packageJson.dependencies['react-router-dom'],
-        //   },
+
+        'react-router-dom': {
+          eager: true,
+          singleton: true,
+          requiredVersion: dependencies['react-router-dom'],
+        },
       },
     }),
   );

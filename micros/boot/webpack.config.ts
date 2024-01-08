@@ -11,6 +11,8 @@ interface EnvVariables {
 }
 
 export default (env: EnvVariables) => {
+  const ABOUT_REMOTE = 'http://localhost:3001';
+
   const config = getWebpackConfig({
     mode: env.mode || 'development',
 
@@ -36,11 +38,10 @@ export default (env: EnvVariables) => {
   config.plugins.push(
     new webpack.container.ModuleFederationPlugin({
       name: 'boot',
-
       filename: 'remoteEntry.js',
 
       remotes: {
-        about: `about@http://localhost:3001/remoteEntry.js`,
+        about: `about@${ABOUT_REMOTE}/remoteEntry.js`,
       },
 
       shared: {
@@ -57,10 +58,12 @@ export default (env: EnvVariables) => {
           eager: true,
           requiredVersion: dependencies['react-dom'],
         },
-        // 'react-router-dom': {
-        //   eager: true,
-        //   requiredVersion: packageJson.dependencies['react-router-dom'],
-        // },
+
+        'react-router-dom': {
+          eager: true,
+          singleton: true,
+          requiredVersion: dependencies['react-router-dom'],
+        },
       },
     }),
   );

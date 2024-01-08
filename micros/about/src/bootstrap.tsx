@@ -1,17 +1,11 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './Router';
 
-import { routes } from './Router';
+const root = document.querySelector('#root');
 
-const Fallback: FC = () => <div>Подождите...</div>;
-
-const router = createBrowserRouter(routes);
-
-const root = createRoot(document.querySelector('#root'));
-
-root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} fallbackElement={<Fallback />} />
-  </React.StrictMode>,
-);
+if (root) {
+  const container = createRoot(root);
+  container.render(<RouterProvider router={router} fallbackElement={<div>Подождите...</div>} />);
+}

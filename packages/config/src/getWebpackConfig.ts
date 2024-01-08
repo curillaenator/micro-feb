@@ -21,7 +21,8 @@ export const getWebpackConfig = (options: BuildOptions) => {
     output: {
       path: paths.output,
       filename: '[name].[contenthash].js',
-      publicPath: '/',
+      // publicPath: '/',
+      publicPath: 'auto',
       clean: true,
     },
 
@@ -36,17 +37,17 @@ export const getWebpackConfig = (options: BuildOptions) => {
 
     module: { rules: getLoaders(fullOptions) },
 
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          vendors: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-        },
-      },
-    },
+    // optimization: {
+    //   splitChunks: {
+    //     cacheGroups: {
+    //       vendors: {
+    //         test: /[\\/]node_modules[\\/]/,
+    //         name: 'vendors',
+    //         chunks: 'all',
+    //       },
+    //     },
+    //   },
+    // },
 
     devtool: mode === 'development' ? 'source-map' : false,
   };

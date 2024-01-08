@@ -1,17 +1,22 @@
-import React, { FC, Suspense } from 'react';
+import React, { Suspense } from 'react';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
+
 import { LazyAbout } from './pages';
 
-const Fallback: FC = () => <div>Подождите...</div>;
-
-export const routes = [
+const routes = [
   {
     path: '/',
-    element: <div>About page mfe</div>,
+    element: (
+      <div>
+        <h1>About page mfe</h1>
+        <Outlet />
+      </div>
+    ),
     children: [
       {
         path: '/about',
         element: (
-          <Suspense fallback={<Fallback />}>
+          <Suspense fallback={'Подождите...'}>
             <LazyAbout />
           </Suspense>
         ),
@@ -19,5 +24,7 @@ export const routes = [
     ],
   },
 ];
+
+export const router = createBrowserRouter(routes);
 
 export default routes;
