@@ -1,2 +1,2 @@
-export { getWebpackConfig } from "./getWebpackConfig";
-export type { BuildOptions } from "./interfaces";
+export { getWebpackConfig } from './getWebpackConfig';
+export type { BuildOptions, CommandsEnvVariables } from './interfaces';

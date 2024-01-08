@@ -2,7 +2,8 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { App } from '@src/app';
+// @ts-ignore
+import Layout from 'layout/Layout';
 import mfeRoutes from '@src/mfeRoutes';
 
 import './index.scss';
@@ -14,7 +15,7 @@ if (root) {
 
   container.render(
     <RouterProvider
-      router={createBrowserRouter([{ path: '/', element: <App />, children: mfeRoutes }])}
+      router={createBrowserRouter([{ path: '/', element: <Layout />, children: mfeRoutes }])}
       fallbackElement={<div>Подождите...</div>}
     />,
   );

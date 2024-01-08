@@ -3120,7 +3120,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"concurrently@npm:^8.2.2":
+"concurrently@npm:8.2.2":
   version: 8.2.2
   resolution: "concurrently@npm:8.2.2"
   dependencies:
@@ -4872,6 +4872,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"layout@workspace:micros/layout":
+  version: 0.0.0-use.local
+  resolution: "layout@workspace:micros/layout"
+  dependencies:
+    "@microfeb/config": "npm:*"
+    "@types/react": "npm:18.2.46"
+    "@types/react-dom": "npm:18.2.18"
+    "@types/webpack": "npm:5.28.5"
+    react: "npm:18.2.0"
+    react-dom: "npm:18.2.0"
+    react-router-dom: "npm:6.21.1"
+  languageName: unknown
+  linkType: soft
+
 "lines-and-columns@npm:^1.1.6":
   version: 1.2.4
   resolution: "lines-and-columns@npm:1.2.4"
@@ -5081,7 +5095,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "micro-feb@workspace:."
   dependencies:
-    concurrently: "npm:^8.2.2"
+    concurrently: "npm:8.2.2"
   languageName: unknown
   linkType: soft
 

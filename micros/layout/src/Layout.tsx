@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-import styles from './app.module.scss';
+import styles from './layout.module.scss';
 
-export const App: FC = () => {
+const Layout: FC<PropsWithChildren> = () => {
   return (
     <div className={styles.app}>
       <aside className={styles.aside}></aside>
@@ -23,3 +23,5 @@ export const App: FC = () => {
     </div>
   );
 };
+
+export default Layout;

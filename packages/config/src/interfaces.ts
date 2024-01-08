@@ -20,3 +20,9 @@ export interface FullBuildOptions extends BuildOptions {
   isDevMode: boolean;
   isProdMode: boolean;
 }
+
+export interface CommandsEnvVariables {
+  mode?: 'development' | 'production';
+  port?: number;
+  analyze?: boolean;
+}
