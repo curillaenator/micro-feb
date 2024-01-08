@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import { getWebpackConfig } from '@microfeb/config';
 
+import { REMOTES } from './remotes';
 import { dependencies } from './package.json';
 
 interface EnvVariables {
@@ -11,8 +12,6 @@ interface EnvVariables {
 }
 
 export default (env: EnvVariables) => {
-  const ABOUT_REMOTE = 'http://localhost:3001';
-
   const config = getWebpackConfig({
     mode: env.mode || 'development',
 
@@ -23,7 +22,7 @@ export default (env: EnvVariables) => {
 
     // набор глоб js переменных
     define: {
-      __PLATFORM__: 'desktopb',
+      __PLATFORM__: 'desktop',
     },
 
     paths: {
@@ -40,9 +39,7 @@ export default (env: EnvVariables) => {
       name: 'boot',
       filename: 'remoteEntry.js',
 
-      remotes: {
-        about: `about@${ABOUT_REMOTE}/remoteEntry.js`,
-      },
+      remotes: REMOTES,
 
       shared: {
         ...dependencies,

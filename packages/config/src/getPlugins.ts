@@ -6,8 +6,6 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-// import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-// import ModuleFederationPlugin from 'webpack/lib/container/ModuleFederationPlugin';
 
 import type { Configuration } from 'webpack';
 import type { FullBuildOptions } from './interfaces';
@@ -19,6 +17,7 @@ export const getPlugins = (options: FullBuildOptions): Configuration['plugins'] 
     new HTMLWebpackPlugin({
       template: paths.html,
       favicon: path.resolve(paths.public, 'favicon.ico'),
+      publicPath: '/',
     }),
 
     new CopyWebpackPlugin({
@@ -35,11 +34,6 @@ export const getPlugins = (options: FullBuildOptions): Configuration['plugins'] 
 
     // инжект глобальных js переменных
     new DefinePlugin(Object.fromEntries(Object.entries(define).map(([k, v]) => [k, JSON.stringify(v)]))),
-
-    // new ModuleFederationPlugin({
-    //   name: 'container',
-    //   remotes: REMOTES,
-    // }),
   ];
 
   if (isDevMode) {

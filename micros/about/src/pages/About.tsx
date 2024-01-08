@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import Heart from '@src/assets/heart.svg';
 
-const About: FC = (props) => {
+const About: FC = () => {
   return (
     <div data-testid='App.Container'>
       <h1>About us</h1>

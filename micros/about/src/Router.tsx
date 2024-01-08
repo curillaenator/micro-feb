@@ -3,28 +3,37 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { LazyAbout } from './pages';
 
-const routes = [
+export const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/*',
+    element: <div>This is mfe app</div>,
+  },
+]);
+
+const exposedRoutes = [
+  {
+    path: '/about',
     element: (
       <div>
-        <h1>About page mfe</h1>
+        <h1>About</h1>
         <Outlet />
       </div>
     ),
     children: [
       {
-        path: '/about',
+        path: '/about/main',
         element: (
           <Suspense fallback={'Подождите...'}>
             <LazyAbout />
           </Suspense>
         ),
       },
+      {
+        path: '/about/good',
+        element: <div>Good</div>,
+      },
     ],
   },
 ];
 
-export const router = createBrowserRouter(routes);
-
-export default routes;
+export default exposedRoutes;
