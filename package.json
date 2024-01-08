@@ -1,8 +1,14 @@
 {
   "name": "micro-feb",
   "packageManager": "yarn@4.0.2",
+  "scripts": {
+    "start": "concurrently \"cd ./micros/boot && yarn start\" \"cd ./micros/about && yarn start\""
+  },
   "workspaces": [
     "packages/*",
     "micros/*"
-  ]
+  ],
+  "devDependencies": {
+    "concurrently": "8.2.2"
+  }
 }

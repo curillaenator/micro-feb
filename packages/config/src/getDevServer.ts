@@ -8,7 +8,7 @@ export const getDevServer = (options: FullBuildOptions): DevServerConfiguration 
 
   return {
     port,
-    open: true,
+    open: +port === 3000,
     // если раздавать статику через nginx то нужно проксирование на index.html
     historyApiFallback: true,
     hot: true,

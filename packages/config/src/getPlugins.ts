@@ -22,8 +22,9 @@ export const getPlugins = (options: FullBuildOptions): Configuration['plugins'] 
 
     new CopyWebpackPlugin({
       patterns: [
-        { from: path.resolve(paths.public, 'fonts'), to: path.resolve(paths.output, 'fonts') },
-        { from: path.resolve(paths.public, 'fonts.css'), to: '' },
+        // { from: path.resolve(paths.public, 'fonts'), to: path.resolve(paths.output, 'fonts') },
+        // { from: path.resolve(paths.public, 'fonts.css'), to: '' },
+        { from: path.resolve(paths.public), to: '' },
       ],
     }),
 

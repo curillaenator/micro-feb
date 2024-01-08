@@ -1,8 +1,8 @@
 {
-  "name": "@micro/boot",
+  "name": "boot",
   "version": "1.0.0",
   "scripts": {
-    "start": "npx webpack serve",
+    "start": "npx webpack serve --env port=3000",
     "build": "npx webpack --env mode=development",
     "build:prod": "npx webpack --env mode=production",
     "build:production": "npx webpack --env mode=production analyze=true"
