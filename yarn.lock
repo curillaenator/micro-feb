@@ -1611,6 +1611,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@microfeb/global-stores@npm:1.0.0, @microfeb/global-stores@workspace:packages/globalStores":
+  version: 0.0.0-use.local
+  resolution: "@microfeb/global-stores@workspace:packages/globalStores"
+  dependencies:
+    effector: "npm:23.1.0"
+    effector-react: "npm:23.1.0"
+  languageName: unknown
+  linkType: soft
+
 "@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3":
   version: 2.1.8-no-fsevents.3
   resolution: "@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3"
@@ -2782,9 +2791,12 @@ __metadata:
   resolution: "boot@workspace:micros/boot"
   dependencies:
     "@microfeb/config": "npm:*"
+    "@microfeb/global-stores": "npm:1.0.0"
     "@types/react": "npm:18.2.46"
     "@types/react-dom": "npm:18.2.18"
     "@types/webpack": "npm:5.28.5"
+    effector: "npm:23.1.0"
+    effector-react: "npm:23.1.0"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     react-router-dom: "npm:6.21.1"
@@ -3584,6 +3596,25 @@ __metadata:
   version: 1.1.1
   resolution: "ee-first@npm:1.1.1"
   checksum: b5bb125ee93161bc16bfe6e56c6b04de5ad2aa44234d8f644813cc95d861a6910903132b05093706de2b706599367c4130eb6d170f6b46895686b95f87d017b7
+  languageName: node
+  linkType: hard
+
+"effector-react@npm:23.1.0":
+  version: 23.1.0
+  resolution: "effector-react@npm:23.1.0"
+  dependencies:
+    use-sync-external-store: "npm:^1.0.0"
+  peerDependencies:
+    effector: ^23.0.0
+    react: ">=16.8.0 <19.0.0"
+  checksum: 7b5e4871c2b2be30a763fdc71199d38bc8a3196bf39489d3a3c370ceb8833ba356243c34ef5898990bf5ad5c2674a39d502f9b5c8358becb9b2dcf7420876d3f
+  languageName: node
+  linkType: hard
+
+"effector@npm:23.1.0":
+  version: 23.1.0
+  resolution: "effector@npm:23.1.0"
+  checksum: fb1551bbbe50886fa44079234a6e73dd68f76a031e0fef09f998cfb9011adb7e1e57458459c609c2d71e2221900294e9a022743710d42411d36388c3cf206611
   languageName: node
   linkType: hard
 
@@ -4877,9 +4908,12 @@ __metadata:
   resolution: "layout@workspace:micros/layout"
   dependencies:
     "@microfeb/config": "npm:*"
+    "@microfeb/global-stores": "npm:1.0.0"
     "@types/react": "npm:18.2.46"
     "@types/react-dom": "npm:18.2.18"
     "@types/webpack": "npm:5.28.5"
+    effector: "npm:23.1.0"
+    effector-react: "npm:23.1.0"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     react-router-dom: "npm:6.21.1"
@@ -7035,6 +7069,15 @@ __metadata:
   dependencies:
     punycode: "npm:^2.1.0"
   checksum: 4ef57b45aa820d7ac6496e9208559986c665e49447cb072744c13b66925a362d96dd5a46c4530a6b8e203e5db5fe849369444440cb22ecfc26c679359e5dfa3c
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:^1.0.0":
+  version: 1.2.0
+  resolution: "use-sync-external-store@npm:1.2.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: ac4814e5592524f242921157e791b022efe36e451fe0d4fd4d204322d5433a4fc300d63b0ade5185f8e0735ded044c70bcf6d2352db0f74d097a238cebd2da02
   languageName: node
   linkType: hard
 

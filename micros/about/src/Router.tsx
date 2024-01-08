@@ -14,25 +14,24 @@ const exposedRoutes = [
   {
     path: '/about',
     element: (
-      <div>
-        <h1>About</h1>
-        <Outlet />
-      </div>
+      <Suspense fallback={'Подождите...'}>
+        <LazyAbout />
+      </Suspense>
     ),
-    children: [
-      {
-        path: '/about/main',
-        element: (
-          <Suspense fallback={'Подождите...'}>
-            <LazyAbout />
-          </Suspense>
-        ),
-      },
-      {
-        path: '/about/good',
-        element: <div>Good</div>,
-      },
-    ],
+    // children: [
+    //   {
+    //     path: '/about/main',
+    //     element: (
+    //       <Suspense fallback={'Подождите...'}>
+    //         <LazyAbout />
+    //       </Suspense>
+    //     ),
+    //   },
+    //   {
+    //     path: '/about/good',
+    //     element: <div>Good</div>,
+    //   },
+    // ],
   },
 ];
 

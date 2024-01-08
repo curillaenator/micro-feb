@@ -2,7 +2,7 @@
   "name": "micro-feb",
   "packageManager": "yarn@4.0.2",
   "scripts": {
-    "start": "concurrently \"cd ./micros/boot && yarn start\" \"cd ./micros/about && yarn start\""
+    "start": "concurrently \"cd ./micros/boot && yarn start\" \"cd ./micros/layout && yarn start\" \"cd ./micros/about && yarn start\""
   },
   "workspaces": [
     "packages/*",

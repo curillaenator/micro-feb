@@ -15,7 +15,13 @@ if (root) {
 
   container.render(
     <RouterProvider
-      router={createBrowserRouter([{ path: '/', element: <Layout />, children: mfeRoutes }])}
+      router={createBrowserRouter([
+        {
+          path: '/',
+          element: <Layout mfeRoutes={mfeRoutes} />,
+          children: mfeRoutes,
+        },
+      ])}
       fallbackElement={<div>Подождите...</div>}
     />,
   );

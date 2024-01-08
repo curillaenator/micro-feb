@@ -8,6 +8,9 @@
     "build:production": "npx webpack --env mode=production analyze=true"
   },
   "dependencies": {
+    "@microfeb/global-stores": "1.0.0",
+    "effector": "23.1.0",
+    "effector-react": "23.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.21.1"

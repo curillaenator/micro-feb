@@ -57,6 +57,18 @@ export default (env: CommandsEnvVariables) => {
           singleton: true,
           requiredVersion: dependencies['react-router-dom'],
         },
+
+        effector: {
+          eager: true,
+          singleton: true,
+          requiredVersion: dependencies['effector'],
+        },
+
+        'effector-react': {
+          eager: true,
+          singleton: true,
+          requiredVersion: dependencies['effector-react'],
+        },
       },
     }),
   );

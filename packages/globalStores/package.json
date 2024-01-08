@@ -1,0 +1,9 @@
+{
+  "name": "@microfeb/global-stores",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "dependencies": {
+    "effector": "23.1.0",
+    "effector-react": "23.1.0"
+  }
+}
