@@ -12,8 +12,6 @@ interface LayoutProps {
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({ mfeRoutes }) => {
   const navPaths = mfeRoutes.map((route) => route.path) as string[];
 
-  console.log(navPaths);
-
   return (
     <div className={styles.app}>
       <aside className={styles.aside}>

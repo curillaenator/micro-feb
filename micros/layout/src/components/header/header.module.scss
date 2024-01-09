@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .header {
   display: flex;
   align-items: center;
@@ -8,4 +10,36 @@
   height: 96px;
   padding: 24px;
   border-bottom: 1px solid #e5e5e5;
+}
+
+.button {
+  --corners-bgc: #4040ff;
+  --corners-bdc: red;
+
+  position: relative;
+  width: 100%;
+
+  outline: none;
+  border: none;
+
+  padding: 12px 16px;
+
+  background-color: var(--corners-bgc);
+
+  font-family: SanFrancisco, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #ffffff;
+
+  cursor: pointer;
+  z-index: 1;
+
+  &:hover {
+    --corners-bgc: #{color.adjust(#4040ff, $lightness: 5%)};
+  }
+
+  &:active {
+    --corners-bgc: #{color.adjust(#4040ff, $lightness: -5%)};
+  }
 }

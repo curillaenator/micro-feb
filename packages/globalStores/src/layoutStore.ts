@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { createEvent, createStore } from 'effector';
+import { useUnit } from 'effector-react';
 
 interface LayoutRoute {
   id: string;
@@ -33,3 +34,10 @@ $layout
     ...state,
     menu: [...state.menu, menuRoute],
   }));
+
+export const useHeader = () => {
+  const { header } = useUnit($layout);
+
+  console.log(header);
+  return header;
+};

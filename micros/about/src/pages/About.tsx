@@ -1,9 +1,19 @@
 import React, { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { setHeader } from '@microfeb/global-stores';
+// import { useNavigate } from 'react-router-dom';
 
 import Heart from '@src/assets/heart.svg';
 
 const About: FC = () => {
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+
+  //   return () => {
+  //     setHeader(null);
+  //   };
+  // }, []);
+
   return (
     <div data-testid='App.Container'>
       <h1>About us</h1>

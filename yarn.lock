@@ -2263,6 +2263,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@uikit/smooth-rect@npm:1.0.0, @uikit/smooth-rect@workspace:uikit/smoothRect":
+  version: 0.0.0-use.local
+  resolution: "@uikit/smooth-rect@workspace:uikit/smoothRect"
+  dependencies:
+    classnames: "npm:2.3.2"
+  peerDependencies:
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
 "@webassemblyjs/ast@npm:1.11.6, @webassemblyjs/ast@npm:^1.11.5":
   version: 1.11.6
   resolution: "@webassemblyjs/ast@npm:1.11.6"
@@ -2979,6 +2989,13 @@ __metadata:
   version: 1.0.3
   resolution: "chrome-trace-event@npm:1.0.3"
   checksum: 080ce2d20c2b9e0f8461a380e9585686caa768b1c834a464470c9dc74cda07f27611c7b727a2cd768a9cecd033297fdec4ce01f1e58b62227882c1059dec321c
+  languageName: node
+  linkType: hard
+
+"classnames@npm:2.3.2":
+  version: 2.3.2
+  resolution: "classnames@npm:2.3.2"
+  checksum: cd50ead57b4f97436aaa9f9885c6926323efc7c2bea8e3d4eb10e4e972aa6a1cfca1c7a0e06f8a199ca7498d4339e30bb6002e589e61c9f21248cbf3e8b0b18d
   languageName: node
   linkType: hard
 
@@ -4912,6 +4929,7 @@ __metadata:
     "@types/react": "npm:18.2.46"
     "@types/react-dom": "npm:18.2.18"
     "@types/webpack": "npm:5.28.5"
+    "@uikit/smooth-rect": "npm:1.0.0"
     effector: "npm:23.1.0"
     effector-react: "npm:23.1.0"
     react: "npm:18.2.0"
