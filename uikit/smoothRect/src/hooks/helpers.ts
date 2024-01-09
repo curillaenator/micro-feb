@@ -12,7 +12,6 @@ export const calc = (R: number, stroke: number) => {
   const borderPath = `M ${I} ${R} C ${I} ${S} ${S} ${I} ${R} ${I}`;
 
   return {
-    R,
     path,
     borderPath,
   };

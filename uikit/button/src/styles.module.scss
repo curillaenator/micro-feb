@@ -1,0 +1,99 @@
+@use 'sass:color';
+
+$scale: (
+  'sm': (
+    'gap-x': 8px,
+    'padding-x': 8px,
+    'padding-y': 12px,
+    'fz': 14px,
+    'fw': 500,
+    'lh': 24px,
+  ),
+  'md': (
+    'gap-x': 12px,
+    'padding-x': 12px,
+    'padding-y': 16px,
+    'fz': 14px,
+    'fw': 600,
+    'lh': 24px,
+  ),
+);
+
+$style: (
+  'content': (
+    'ff': 'SanFrancisco, sans-serif',
+  ),
+);
+
+$theme: (
+  'light': (
+    'solid': (
+      'bg': #4040ff,
+      'ct-gn': #ffffff,
+    ),
+  ),
+  'dark': (
+    'solid': (
+      'bg': #4040ff,
+      'ct-gn': #ffffff,
+    ),
+  ),
+);
+
+@function getStyle($prop) {
+  @return map-get($style, 'content', $prop);
+}
+
+@function getScale($prop, $size: 'sm') {
+  @return map-get($scale, $size, $prop);
+}
+
+@function getColor($prop, $schema, $mode: 'light') {
+  @return map-get($theme, $mode, $schema, $prop);
+}
+
+@each $modeName, $mode in $theme {
+  @each $schemaName, $schema in $mode {
+    ._#{$schemaName}_#{$modeName} {
+      --btn-bg: #{map-get($schema, 'bg')};
+      --btn-ct-gn: #{map-get($schema, 'ct-gn')};
+    }
+  }
+}
+
+.button {
+  $bg: #4040ff;
+
+  --corners-bgc: var(--btn-bg);
+  --corners-bdc: #{color.adjust($bg, $lightness: 15%)};
+
+  --btn-width: 'fit-content';
+
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+  outline: none;
+  border: none;
+  background-color: transparent;
+
+  width: var(--btn-width);
+  padding: 12px 16px;
+
+  font-family: SanFrancisco, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--btn-ct-gn);
+
+  &:hover {
+    --corners-bgc: #{color.adjust($bg, $lightness: 5%)};
+  }
+
+  &:active {
+    --corners-bgc: #{color.adjust($bg, $lightness: -5%)};
+  }
+}
+
+._fullwidth {
+  --btn-width: 100%;
+}

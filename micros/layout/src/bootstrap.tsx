@@ -7,11 +7,7 @@ import Layout from '@src/Layout';
 export const router = createBrowserRouter([
   {
     path: '/*',
-    element: (
-      <Layout>
-        <div>Some child</div>
-      </Layout>
-    ),
+    element: <Layout mfeRoutes={[]} />,
   },
 ]);
 

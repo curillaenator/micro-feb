@@ -1,0 +1,10 @@
+{
+  "name": "@uikit/button",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.ts",
+  "dependencies": {
+    "@uikit/smooth-rect": "1.0.0",
+    "classnames": "2.3.2"
+  }
+}
