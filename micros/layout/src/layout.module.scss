@@ -44,10 +44,14 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
   min-height: 100vh;
 
   .main {
+    flex-grow: 2;
     padding: 24px;
   }
 }
