@@ -8,6 +8,19 @@ import mfeRoutes from '@src/mfeRoutes';
 
 import './index.scss';
 
+interface LayoutMfeRoute {
+  path: string;
+  name: string;
+  children?: LayoutMfeRoute[];
+}
+
+const getLayoutRoutes = (routes: any[]): LayoutMfeRoute[] =>
+  routes.map(({ path, name, children }) => ({
+    path,
+    name,
+    children: children ? getLayoutRoutes(children) : undefined,
+  }));
+
 const root = document.querySelector('#root');
 
 if (root) {
@@ -18,7 +31,7 @@ if (root) {
       router={createBrowserRouter([
         {
           path: '/',
-          element: <Layout mfeRoutes={mfeRoutes} />,
+          element: <Layout mfeRoutes={getLayoutRoutes(mfeRoutes)} />,
           children: mfeRoutes,
         },
       ])}

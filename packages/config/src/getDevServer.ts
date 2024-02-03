@@ -12,5 +12,10 @@ export const getDevServer = (options: FullBuildOptions): DevServerConfiguration 
     // если раздавать статику через nginx то нужно проксирование на index.html
     historyApiFallback: true,
     hot: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+    },
   };
 };

@@ -19,7 +19,6 @@ const About: FC = () => {
       <h1>About us</h1>
 
       <Heart data-testid='Icon' width='56px' height='56px' color='orange' />
-      <Heart data-testid='Icon' width='56px' height='56px' color='orange' />
     </div>
   );
 };

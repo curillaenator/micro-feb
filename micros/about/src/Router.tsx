@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 import { LazyAbout } from './pages';
 
@@ -13,25 +13,24 @@ export const router = createBrowserRouter([
 const exposedRoutes = [
   {
     path: '/about',
-    element: (
-      <Suspense fallback={'Подождите...'}>
-        <LazyAbout />
-      </Suspense>
-    ),
-    // children: [
-    //   {
-    //     path: '/about/main',
-    //     element: (
-    //       <Suspense fallback={'Подождите...'}>
-    //         <LazyAbout />
-    //       </Suspense>
-    //     ),
-    //   },
-    //   {
-    //     path: '/about/good',
-    //     element: <div>Good</div>,
-    //   },
-    // ],
+    name: 'About',
+    children: [
+      {
+        path: '/about/page',
+        name: '* About page 1',
+        index: true,
+        element: (
+          <Suspense fallback={'Подождите...'}>
+            <LazyAbout />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/about/good',
+        name: '* About page 1',
+        element: <div>Good</div>,
+      },
+    ],
   },
 ];
 
