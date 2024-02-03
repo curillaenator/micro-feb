@@ -46,7 +46,7 @@ const Layout: FC<LayoutProps> = ({ mfeRoutes }) => {
       </aside>
 
       <div className={styles.content}>
-        {/* <Header /> */}
+        <Header />
 
         <main className={styles.main}>
           <Outlet />

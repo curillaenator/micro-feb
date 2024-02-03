@@ -1,0 +1,38 @@
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  &_bt {
+    border-top: 1px dashed #e5e5e5;
+  }
+
+  &_bl {
+    border-left: 1px dashed #e5e5e5;
+  }
+}
+
+$appearances: (
+  'transparent': transparent,
+  'danger': #ea4335,
+  'attention': #fbbc05,
+  'primary': #4285f4,
+  'positive': #34a853,
+  'neutral': #e5e5e5,
+);
+
+.circle {
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background-color: var(--cell-dot-bgc);
+
+  @each $appearance, $color in $appearances {
+    &_#{'' + $appearance} {
+      --cell-dot-bgc: #{$color};
+    }
+  }
+}
