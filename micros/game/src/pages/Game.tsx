@@ -1,20 +1,27 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
+import { useUnit } from 'effector-react';
+
+import { Button } from '@uikit/button';
+
+import { gameReset } from '@src/store';
 
 import { Field } from '@src/components/field';
-import { $field, setCells } from '@src/store';
-
-import { FIELD_GENERATOR } from '@src/constants';
 import styles from './game.module.scss';
 
 const Game: FC = () => {
   return (
-    <div className={styles.container}>
+    <>
       <div className={styles.game}>
-        <Field setCells={setCells} />
-
-        <Field setCells={setCells} />
+        <Field player='p1' />
+        <Field player='p2' />
       </div>
-    </div>
+
+      <div className={styles.controls}>
+        <Button id='reset-button' onClick={() => gameReset()}>
+          Reset game
+        </Button>
+      </div>
+    </>
   );
 };
 

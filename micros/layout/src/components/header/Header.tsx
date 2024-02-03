@@ -10,8 +10,8 @@ export const Header: FC = () => {
 
   return (
     <header className={styles.header}>
-      <Button onClick={() => console.log(header)} outline={0}>
-        Smoothed corners button
+      <Button id='header-test-button' onClick={() => console.log(header)} outline={0}>
+        Header button
       </Button>
     </header>
   );

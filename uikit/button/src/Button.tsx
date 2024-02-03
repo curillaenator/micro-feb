@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 
 export const Button: FC<ButtonProps> = (props) => {
   const {
+    id,
     children,
     borderRadius = 20,
     outline = 0,
@@ -19,13 +20,14 @@ export const Button: FC<ButtonProps> = (props) => {
   return (
     <button
       {...rest}
+      id={id}
       type='button'
       style={{ borderRadius }}
       className={cn(styles.button, styles[`_${appearance}_${colorMode}`], {
         [styles._fullwidth]: fullwidth,
       })}
     >
-      <Corners stroke={outline} borderRadius={borderRadius} />
+      <Corners id={id} stroke={outline} borderRadius={borderRadius} />
       {children}
     </button>
   );

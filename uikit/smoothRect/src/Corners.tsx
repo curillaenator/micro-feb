@@ -8,13 +8,13 @@ import type { CornerProps } from './interfaces';
 import styles from './styles.module.scss';
 
 export const Corners: FC<CornerProps> = (props) => {
-  const { borderRadius, stroke, path, borderPath, corners = CORNERS } = useCorners(props);
+  const { id, borderRadius, stroke, path, borderPath, corners = CORNERS } = useCorners(props);
 
   return (
     <div className={styles.container}>
       <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' className={styles.svgInner}>
         <defs>
-          <clipPath id='corners-inner-polygons'>
+          <clipPath id={`corners-inner-polygons-${id}`}>
             <rect
               x={borderRadius - SVG_OVERLAP}
               y={0}
@@ -39,7 +39,7 @@ export const Corners: FC<CornerProps> = (props) => {
           strokeWidth={stroke * 2}
           fill='var(--corners-bgc, blue)'
           stroke='var(--corners-bdc, red)'
-          clipPath='url(#corners-inner-polygons)'
+          clipPath={`url(#corners-inner-polygons-${id})`}
         />
       </svg>
 

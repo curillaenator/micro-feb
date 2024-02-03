@@ -8,16 +8,16 @@ import type { CellData } from '@src/types';
 import styles from './field.module.scss';
 
 interface FiledProps {
-  setCells: EventCallable<Record<string, CellData>>;
+  player: 'p1' | 'p2';
 }
 
 export const Field: FC<FiledProps> = (props) => {
-  const { setCells } = props;
+  const { player } = props;
 
   return (
     <div className={styles.field}>
       {FIELD_GENERATOR.map(([pos, data]) => (
-        <Cell key={pos} {...data} setCells={setCells} />
+        <Cell key={pos} {...data} player={player} />
       ))}
     </div>
   );

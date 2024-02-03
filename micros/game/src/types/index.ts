@@ -1,6 +1,5 @@
 export interface CellData {
   x: number;
   y: number;
-  isTouched?: boolean;
-  isShip?: boolean;
+  state?: 'neutral' | 'attention' | 'danger' | 'primary' | 'transparent';
 }

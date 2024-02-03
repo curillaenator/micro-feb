@@ -8,7 +8,8 @@
     "build:production": "npx webpack --env mode=production analyze=true"
   },
   "dependencies": {
-    "classnames": "^2.5.1",
+    "@uikit/button": "1.0.0",
+    "classnames": "2.5.1",
     "effector": "23.1.0",
     "effector-react": "23.1.0",
     "react": "18.2.0",

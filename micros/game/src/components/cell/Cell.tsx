@@ -1,25 +1,29 @@
 import React, { FC } from 'react';
 import { useUnit } from 'effector-react';
-import type { EventCallable } from 'effector';
 import cn from 'classnames';
 
-import { $field, setCells } from '@src/store';
+import { $game, setCellsP1, setCellsP2 } from '@src/store';
+
+import { getShip1 } from '@src/assets';
 
 import type { CellData } from '@src/types';
 import styles from './cell.module.scss';
 
 interface CellProps extends CellData {
   isOnFire?: boolean;
-
-  setCells: EventCallable<Record<string, CellData>>;
+  player: 'p1' | 'p2';
 }
 
 export const Cell: FC<CellProps> = (props) => {
-  const { x, y } = props;
+  const { x, y, player = 'p1' } = props;
   const pos = `${x}_${y}`;
 
-  const cellData = useUnit($field)[pos];
-  const { isShip, isTouched } = cellData;
+  const { p1, p2 } = useUnit($game);
+
+  const cellData = player === 'p1' ? p1[pos] : p2[pos];
+  const cellHandler = player === 'p1' ? setCellsP1 : setCellsP2;
+
+  const { state } = cellData;
 
   return (
     <div
@@ -28,19 +32,10 @@ export const Cell: FC<CellProps> = (props) => {
         [styles.cell_bl]: x > 0,
       })}
       onClick={() => {
-        setCells({
-          [pos]: { ...cellData, isShip: true },
-        });
+        cellHandler(getShip1(pos));
       }}
     >
-      <div
-        className={cn(styles.circle, styles.circle_transparent, {
-          [styles.circle_primary]: isShip,
-          [styles.circle_attention]: false,
-          [styles.circle_danger]: false,
-          [styles.circle_neutral]: false,
-        })}
-      />
+      <div className={cn(styles.circle, styles[`circle_${state}`])} />
     </div>
   );
 };

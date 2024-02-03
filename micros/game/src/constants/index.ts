@@ -8,6 +8,7 @@ export const FIELD_GENERATOR = new Array(10)
       {
         x: col,
         y: row,
+        state: 'transparent',
       },
     ]),
   )
