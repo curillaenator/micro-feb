@@ -1,1 +1,1 @@
-export { getShip1 } from './ship1';
+export { getShip4 } from './ship4';

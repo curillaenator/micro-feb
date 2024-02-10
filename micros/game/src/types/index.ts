@@ -1,5 +1,5 @@
 export interface CellData {
   x: number;
   y: number;
-  state?: 'neutral' | 'attention' | 'danger' | 'primary' | 'transparent';
+  state?: 'neutral' | 'attention' | 'danger' | 'primary' | 'transparent' | 'positive';
 }

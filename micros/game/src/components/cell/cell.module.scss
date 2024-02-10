@@ -29,6 +29,7 @@ $appearances: (
   height: 70%;
   border-radius: 50%;
   background-color: var(--cell-dot-bgc);
+  transition: background-color 0.2s ease;
 
   @each $appearance, $color in $appearances {
     &_#{'' + $appearance} {
