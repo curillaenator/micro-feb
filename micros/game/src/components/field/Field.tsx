@@ -3,7 +3,8 @@ import { useUnit } from 'effector-react';
 import { Cell } from '@src/components/cell';
 
 import { $game, setCellsP1, setCellsP2 } from '@src/store';
-import { getOverlayedShip } from '@src/utils/getOverlayedShip';
+import { getOverlayedShip, lastHoveredShipUnhover } from '@src/utils';
+
 import { getShip4 } from '@src/assets';
 
 import { FIELD_GENERATOR } from '@src/constants';
@@ -23,8 +24,8 @@ export const Field: FC<FiledProps> = (props) => {
   const cellHandler = player === 'p1' ? setCellsP1 : setCellsP2;
   const fieldData = player === 'p1' ? p1 : p2;
 
-  const [shipOrientation, setShipOrientation] = useState<'h' | 'v'>('h');
   const [hoveredCell, setHoveredCell] = useState<CellData>(null);
+  const [shipOrientation, setShipOrientation] = useState<'h' | 'v'>('h');
   const [lastHoveredShip, setLastHoveredShip] = useState<Record<string, CellData>>(null);
 
   const { x, y } = hoveredCell || {};
@@ -32,19 +33,15 @@ export const Field: FC<FiledProps> = (props) => {
   const clearLastHoveredShip = () => {
     if (!lastHoveredShip) return;
 
-    const hoveredCells = Object.fromEntries(
-      Object.entries(lastHoveredShip).map(([k, v]) => [
-        k,
-        { ...fieldData[k], state: v.state === 'positive' ? 'transparent' : fieldData[k].state },
-      ]),
-    );
-
-    cellHandler(hoveredCells);
+    cellHandler(lastHoveredShipUnhover(lastHoveredShip, fieldData));
     setLastHoveredShip(null);
   };
 
   const onShipOrient = () => {
     if (!hoveredCell) return;
+
+    clearLastHoveredShip();
+    setShipOrientation((prev) => (prev === 'h' ? 'v' : 'h'));
 
     const ship = getShip4(`${x}_${y}`, {
       fieldData,
@@ -65,23 +62,19 @@ export const Field: FC<FiledProps> = (props) => {
       className={styles.field}
       onMouseLeave={() => setHoveredCell(null)}
       onKeyDown={(e) => {
-        if (e.code === 'Space') {
-          clearLastHoveredShip();
-          setShipOrientation((prev) => (prev === 'h' ? 'v' : 'h'));
-          onShipOrient();
-        }
+        if (e.code === 'Space') onShipOrient();
       }}
     >
       {FIELD_GENERATOR.map(([pos, data]) => (
         <Cell
           {...data}
           key={pos}
-          player={player}
+          fieldData={fieldData}
           shipOrientation={shipOrientation}
-          hoveredCell={hoveredCell}
           setHoveredCell={setHoveredCell}
           lastHoveredShip={lastHoveredShip}
           setLastHoveredShip={setLastHoveredShip}
+          cellHandler={cellHandler}
         />
       ))}
     </div>
