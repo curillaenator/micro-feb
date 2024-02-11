@@ -1,37 +1,43 @@
+import { feedData, getNCellShip, findPositions, preventPlacing } from '@src/utils';
 import { CellData } from '@src/types';
 
-const LINE = [-1, 0, 1, 2, 3, 4];
-
-const get4CellShip = (offset: number = 0, orientation: 'h' | 'v') =>
-  LINE.map((coord1) =>
-    [-1, 0, 1].map((coord2) => ({
-      x: orientation === 'v' ? coord2 : coord1 + offset,
-      y: orientation === 'v' ? coord1 + offset : coord2,
-      state: coord2 === 0 && coord1 >= 0 && coord1 < 4 ? 'positive' : 'transparent',
-    })),
-  ).flat();
-
-const SHIP_4 = Object.fromEntries([
-  ...[0, -1, -2, -3].map((offsetY) => [`v_${Math.abs(offsetY)}`, get4CellShip(offsetY, 'v')]),
-  ...[0, -1, -2, -3].map((offsetX) => [`h_${Math.abs(offsetX)}`, get4CellShip(offsetX, 'h')]),
-]) as Record<string, CellData[]>;
-
-const findPositions = ([x, y]: [number, number], [dX, dY]: [number, number]) => [x + dX, y + dY];
-
-const feedData = (currentShipMap: CellData[], [tX, tY]: [number, number], i: number) => [
-  `${tX}_${tY}`,
-  { x: tX, y: tY, state: currentShipMap[i].state },
-];
-
-const preventPlacing = (positioned: number[][], fieldData: Record<string, CellData>) => {
-  return positioned.some(([cX, cY]) => fieldData[`${cX}_${cY}`]?.state === 'primary');
+const REVERSE: Record<number, number> = {
+  3: 1,
+  2: 2,
+  1: 3,
 };
 
-const getMap = (y: number, orientation: 'v' | 'h') => {
-  if (y === 9) return `${orientation}_3`;
-  if (y === 8) return `${orientation}_2`;
-  if (y === 7) return `${orientation}_1`;
-  return `${orientation}_0`;
+const SHIP_4 = Object.fromEntries([
+  ...[0, -1, -2, -3].map((offsetY) => [`v_${Math.abs(offsetY)}`, getNCellShip(4, offsetY, 'v')]),
+  ...[0, -1, -2, -3].map((offsetX) => [`h_${Math.abs(offsetX)}`, getNCellShip(4, offsetX, 'h')]),
+]) as Record<string, CellData[]>;
+
+const getMap = (x: number, y: number, orientation: 'v' | 'h', fieldData: Record<string, CellData>) => {
+  const coord = orientation === 'v' ? y : x;
+
+  const possibleMaps: string[] = [...new Array(10).fill(null)].map((_, i) =>
+    i >= 7 ? `${orientation}_${-6 + i}` : `${orientation}_0`,
+  );
+
+  for (let i = 6; i >= 1; i--) {
+    let cache = `${orientation}_0`;
+
+    for (let j = 1; j <= 3; j++) {
+      const pos = orientation === 'v' ? `${x}_${i + j}` : `${i + j}_${y}`;
+      const { state } = fieldData[pos];
+
+      if (state === 'transparent' || state === 'positive') {
+        continue;
+      } else {
+        cache = `${orientation}_${REVERSE[j]}`;
+        break;
+      }
+    }
+
+    possibleMaps[i] = cache;
+  }
+
+  return possibleMaps[coord];
 };
 
 interface GetShip4Data {
@@ -43,10 +49,13 @@ export const getShip4 = (pos: string, data: GetShip4Data): Record<string, CellDa
   const { fieldData, shipOrientation } = data;
   const [x, y] = pos.split('_').map((str) => +str);
 
-  const currentShipMap = SHIP_4[getMap(shipOrientation === 'v' ? y : x, shipOrientation)];
+  const currentShipMap = SHIP_4[getMap(x, y, shipOrientation, fieldData)];
+
   const positioned = currentShipMap.map(({ x: dX, y: dY }) => findPositions([x, y], [dX, dY]));
 
-  if (preventPlacing(positioned, fieldData)) return false;
+  const prevent = preventPlacing(positioned, 4, fieldData);
+
+  if (prevent.isOwelapedByExistingShip) return false;
 
   return Object.fromEntries(positioned.map(([tX, tY], i) => feedData(currentShipMap, [tX, tY], i)));
 };

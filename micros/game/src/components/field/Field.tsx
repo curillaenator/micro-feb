@@ -1,39 +1,29 @@
-import React, { FC, useState } from 'react';
-import { useUnit } from 'effector-react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import { Cell } from '@src/components/cell';
 
-import { $game, setCellsP1, setCellsP2 } from '@src/store';
 import { getOverlayedShip, lastHoveredShipUnhover } from '@src/utils';
-
 import { getShip4 } from '@src/assets';
 
 import { FIELD_GENERATOR } from '@src/constants';
+import type { CellData } from '@src/types';
+import type { FiledProps } from './interfaces';
+
 import styles from './field.module.scss';
 
-import type { CellData } from '@src/types';
-
-interface FiledProps {
-  player: 'p1' | 'p2';
-}
-
 export const Field: FC<FiledProps> = (props) => {
-  const { player } = props;
+  const { fieldData, setCells } = props;
 
-  const { p1, p2 } = useUnit($game);
-
-  const cellHandler = player === 'p1' ? setCellsP1 : setCellsP2;
-  const fieldData = player === 'p1' ? p1 : p2;
-
+  const [lastHoveredShip, setLastHoveredShip] = useState<Record<string, CellData>>(null);
   const [hoveredCell, setHoveredCell] = useState<CellData>(null);
   const [shipOrientation, setShipOrientation] = useState<'h' | 'v'>('h');
-  const [lastHoveredShip, setLastHoveredShip] = useState<Record<string, CellData>>(null);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
-  const { x, y } = hoveredCell || {};
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const clearLastHoveredShip = () => {
     if (!lastHoveredShip) return;
 
-    cellHandler(lastHoveredShipUnhover(lastHoveredShip, fieldData));
+    setCells(lastHoveredShipUnhover(lastHoveredShip, fieldData));
     setLastHoveredShip(null);
   };
 
@@ -43,7 +33,7 @@ export const Field: FC<FiledProps> = (props) => {
     clearLastHoveredShip();
     setShipOrientation((prev) => (prev === 'h' ? 'v' : 'h'));
 
-    const ship = getShip4(`${x}_${y}`, {
+    const ship = getShip4(`${hoveredCell.x}_${hoveredCell.y}`, {
       fieldData,
       shipOrientation: shipOrientation === 'v' ? 'h' : 'v',
     });
@@ -52,15 +42,23 @@ export const Field: FC<FiledProps> = (props) => {
       const overlayedShip = getOverlayedShip(ship, fieldData);
 
       setLastHoveredShip(overlayedShip);
-      cellHandler(overlayedShip);
+      setCells(overlayedShip);
     }
   };
 
+  useEffect(() => {
+    if (isFocused) containerRef.current.focus();
+  }, [isFocused]);
+
   return (
     <div
+      ref={containerRef}
       tabIndex={0}
       className={styles.field}
-      onMouseLeave={() => setHoveredCell(null)}
+      onMouseLeave={() => {
+        setHoveredCell(null);
+        setIsFocused(false);
+      }}
       onKeyDown={(e) => {
         if (e.code === 'Space') onShipOrient();
       }}
@@ -74,7 +72,9 @@ export const Field: FC<FiledProps> = (props) => {
           setHoveredCell={setHoveredCell}
           lastHoveredShip={lastHoveredShip}
           setLastHoveredShip={setLastHoveredShip}
-          cellHandler={cellHandler}
+          setCells={setCells}
+          isFieldFocused={isFocused}
+          setIsFieldFocused={setIsFocused}
         />
       ))}
     </div>

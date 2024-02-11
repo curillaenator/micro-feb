@@ -7,5 +7,7 @@ export interface CellProps extends CellData {
   setHoveredCell: React.Dispatch<React.SetStateAction<CellData>>;
   lastHoveredShip: Record<string, CellData> | null;
   setLastHoveredShip: React.Dispatch<React.SetStateAction<Record<string, CellData>>>;
-  cellHandler: EventCallable<Record<string, CellData>>;
+  setCells: EventCallable<Record<string, CellData>>;
+  isFieldFocused: boolean;
+  setIsFieldFocused: React.Dispatch<React.SetStateAction<boolean>>;
 }

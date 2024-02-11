@@ -8,16 +8,26 @@ import type { CellProps } from './interfaces';
 import styles from './cell.module.scss';
 
 export const Cell: FC<CellProps> = (props) => {
-  const { x, y, fieldData, shipOrientation, lastHoveredShip, setHoveredCell, setLastHoveredShip, cellHandler } = props;
+  const {
+    x,
+    y,
+    fieldData,
+    shipOrientation,
+    lastHoveredShip,
+    isFieldFocused,
+    setHoveredCell,
+    setLastHoveredShip,
+    setIsFieldFocused,
+    setCells,
+  } = props;
   const pos = `${x}_${y}`;
 
   return (
     <div
-      className={cn(styles.cell, {
-        [styles.cell_bt]: y > 0,
-        [styles.cell_bl]: x > 0,
-      })}
+      className={cn(styles.cell, { [styles.cell_bt]: y > 0, [styles.cell_bl]: x > 0 })}
       onMouseEnter={() => {
+        if (!isFieldFocused) setIsFieldFocused(true);
+
         setHoveredCell(fieldData[pos]);
 
         const ship = getShip4(pos, { fieldData, shipOrientation });
@@ -26,19 +36,19 @@ export const Cell: FC<CellProps> = (props) => {
           const overlayedShip = getOverlayedShip(ship, fieldData);
 
           setLastHoveredShip(overlayedShip);
-          cellHandler(overlayedShip);
+          setCells(overlayedShip);
         }
       }}
       onMouseLeave={() => {
         if (!lastHoveredShip) return;
 
-        cellHandler(lastHoveredShipUnhover(lastHoveredShip, fieldData));
         setLastHoveredShip(null);
+        setCells(lastHoveredShipUnhover(lastHoveredShip, fieldData));
       }}
       onClick={() => {
         if (!lastHoveredShip) return;
 
-        cellHandler(lastHoveredShipPlace(lastHoveredShip));
+        setCells(lastHoveredShipPlace(lastHoveredShip));
         setLastHoveredShip(null);
       }}
     >
