@@ -12,4 +12,5 @@ export interface CellProps extends CellData {
   setIsFieldFocused: React.Dispatch<React.SetStateAction<boolean>>;
   shipIndex: number;
   setNextShip: () => void;
+  onTransaction: (transaction: Record<string, CellData>) => void;
 }

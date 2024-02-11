@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import cn from 'classnames';
 
 import { getOverlayedShip, lastHoveredShipUnhover, lastHoveredShipPlace } from '@src/utils';
-import { calcShip } from '@src/assets';
+import { calcShip } from '@src/utils';
 
 import { SHIPS } from '@src/constants';
 import type { CellProps } from './interfaces';
@@ -21,6 +21,7 @@ export const Cell: FC<CellProps> = (props) => {
     setLastHoveredShip,
     setIsFieldFocused,
     setNextShip,
+    onTransaction,
     setCells,
   } = props;
   const pos = `${x}_${y}`;
@@ -51,7 +52,10 @@ export const Cell: FC<CellProps> = (props) => {
       onClick={() => {
         if (!lastHoveredShip) return;
 
-        setCells(lastHoveredShipPlace(lastHoveredShip));
+        const shipToPlace = lastHoveredShipPlace(lastHoveredShip);
+
+        setCells(shipToPlace);
+        onTransaction(shipToPlace);
         setLastHoveredShip(null);
         setNextShip();
       }}

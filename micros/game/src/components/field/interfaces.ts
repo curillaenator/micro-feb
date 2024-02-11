@@ -3,6 +3,6 @@ import { CellData } from '@src/types';
 
 export interface FiledProps {
   setCells: EventCallable<Record<string, CellData>>;
-
   fieldData: Record<string, CellData>;
+  onTransaction: (transaction: Record<string, CellData>) => void;
 }

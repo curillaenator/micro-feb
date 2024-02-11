@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useRef } from 'react';
 import { Cell } from '@src/components/cell';
 
 import { getOverlayedShip, lastHoveredShipUnhover } from '@src/utils';
-import { calcShip } from '@src/assets';
+import { calcShip } from '@src/utils';
 
 import { FIELD_GENERATOR, SHIPS } from '@src/constants';
 import type { CellData } from '@src/types';
@@ -11,7 +11,7 @@ import type { FiledProps } from './interfaces';
 import styles from './field.module.scss';
 
 export const Field: FC<FiledProps> = (props) => {
-  const { fieldData, setCells } = props;
+  const { fieldData, setCells, onTransaction } = props;
 
   const [shipIndex, setShipIndex] = useState<number>(0);
 
@@ -79,7 +79,8 @@ export const Field: FC<FiledProps> = (props) => {
           isFieldFocused={isFocused}
           setIsFieldFocused={setIsFocused}
           shipIndex={shipIndex}
-          setNextShip={() => setShipIndex((prev) => prev + 1)}
+          setNextShip={() => setShipIndex((prev) => (prev < 9 ? prev + 1 : prev))}
+          onTransaction={onTransaction}
         />
       ))}
     </div>

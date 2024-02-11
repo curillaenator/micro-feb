@@ -13,7 +13,13 @@ const Game: FC = () => {
   return (
     <>
       <div className={styles.game}>
-        <Field fieldData={p1} setCells={setCellsP1} />
+        <Field
+          fieldData={p1}
+          setCells={setCellsP1}
+          onTransaction={(t) => {
+            // console.table(t);
+          }}
+        />
         {/* <Field fieldData={p2} setCells={setCellsP2} /> */}
         <div style={{ width: '100%', aspectRatio: '1 / 1' }} />
       </div>

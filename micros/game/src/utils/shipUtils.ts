@@ -1,3 +1,4 @@
+import { SHIP_MAPS } from '@src/constants';
 import { CellData } from '@src/types';
 
 export const feedData = (currentShipMap: CellData[], [tX, tY]: [number, number], i: number) => [
@@ -7,16 +8,8 @@ export const feedData = (currentShipMap: CellData[], [tX, tY]: [number, number],
 
 export const findPositions = ([x, y]: [number, number], [dX, dY]: [number, number]) => [x + dX, y + dY];
 
-export const preventPlacing = (positioned: number[][], shipSize: number, fieldData: Record<string, CellData>) => {
-  const isOwelapedByExistingShip = positioned.some(([cX, cY]) => fieldData[`${cX}_${cY}`]?.state === 'primary');
-
-  const placingSize = positioned.reduce(
-    (acc, [cX, cY]) => (fieldData[`${cX}_${cY}`]?.state === 'positive' ? acc + 1 : acc),
-    0,
-  );
-
-  return { placingSize, isOwelapedByExistingShip };
-};
+export const preventPlacing = (positioned: number[][], fieldData: Record<string, CellData>) =>
+  positioned.some(([cX, cY]) => fieldData[`${cX}_${cY}`]?.state === 'primary' || cX < -1 || cY < -1);
 
 const TRAVERSE_ASSOC: Record<number, Record<number, number>> = {
   4: {
@@ -80,4 +73,22 @@ export const getShipMapName = (
   }
 
   return possibleMaps[coord];
+};
+
+interface GetShip4Data {
+  fieldData: Record<string, CellData>;
+  shipOrientation: 'h' | 'v';
+  shipSize: number;
+}
+
+export const calcShip = (pos: string, data: GetShip4Data): Record<string, CellData> | boolean => {
+  const { fieldData, shipOrientation, shipSize } = data;
+  const [x, y] = pos.split('_').map((str) => +str);
+
+  const currentShipMap = SHIP_MAPS[shipSize][getShipMapName(x, y, shipSize, shipOrientation, fieldData)];
+  const positionedToField = currentShipMap.map(({ x: dX, y: dY }) => findPositions([x, y], [dX, dY]));
+
+  if (preventPlacing(positionedToField, fieldData)) return false;
+
+  return Object.fromEntries(positionedToField.map(([tX, tY], i) => feedData(currentShipMap, [tX, tY], i)));
 };
