@@ -1,1 +1,1 @@
-export { getShip4 } from './ship4';
+export { calcShip } from './ship4';

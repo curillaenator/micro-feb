@@ -10,4 +10,6 @@ export interface CellProps extends CellData {
   setCells: EventCallable<Record<string, CellData>>;
   isFieldFocused: boolean;
   setIsFieldFocused: React.Dispatch<React.SetStateAction<boolean>>;
+  shipIndex: number;
+  setNextShip: () => void;
 }

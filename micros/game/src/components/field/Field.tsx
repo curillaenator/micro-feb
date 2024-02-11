@@ -2,9 +2,9 @@ import React, { FC, useState, useEffect, useRef } from 'react';
 import { Cell } from '@src/components/cell';
 
 import { getOverlayedShip, lastHoveredShipUnhover } from '@src/utils';
-import { getShip4 } from '@src/assets';
+import { calcShip } from '@src/assets';
 
-import { FIELD_GENERATOR } from '@src/constants';
+import { FIELD_GENERATOR, SHIPS } from '@src/constants';
 import type { CellData } from '@src/types';
 import type { FiledProps } from './interfaces';
 
@@ -12,6 +12,8 @@ import styles from './field.module.scss';
 
 export const Field: FC<FiledProps> = (props) => {
   const { fieldData, setCells } = props;
+
+  const [shipIndex, setShipIndex] = useState<number>(0);
 
   const [lastHoveredShip, setLastHoveredShip] = useState<Record<string, CellData>>(null);
   const [hoveredCell, setHoveredCell] = useState<CellData>(null);
@@ -33,8 +35,9 @@ export const Field: FC<FiledProps> = (props) => {
     clearLastHoveredShip();
     setShipOrientation((prev) => (prev === 'h' ? 'v' : 'h'));
 
-    const ship = getShip4(`${hoveredCell.x}_${hoveredCell.y}`, {
+    const ship = calcShip(`${hoveredCell.x}_${hoveredCell.y}`, {
       fieldData,
+      shipSize: SHIPS[shipIndex],
       shipOrientation: shipOrientation === 'v' ? 'h' : 'v',
     });
 
@@ -75,6 +78,8 @@ export const Field: FC<FiledProps> = (props) => {
           setCells={setCells}
           isFieldFocused={isFocused}
           setIsFieldFocused={setIsFocused}
+          shipIndex={shipIndex}
+          setNextShip={() => setShipIndex((prev) => prev + 1)}
         />
       ))}
     </div>

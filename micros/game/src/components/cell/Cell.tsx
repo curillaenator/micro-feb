@@ -2,8 +2,9 @@ import React, { FC } from 'react';
 import cn from 'classnames';
 
 import { getOverlayedShip, lastHoveredShipUnhover, lastHoveredShipPlace } from '@src/utils';
-import { getShip4 } from '@src/assets';
+import { calcShip } from '@src/assets';
 
+import { SHIPS } from '@src/constants';
 import type { CellProps } from './interfaces';
 import styles from './cell.module.scss';
 
@@ -15,9 +16,11 @@ export const Cell: FC<CellProps> = (props) => {
     shipOrientation,
     lastHoveredShip,
     isFieldFocused,
+    shipIndex,
     setHoveredCell,
     setLastHoveredShip,
     setIsFieldFocused,
+    setNextShip,
     setCells,
   } = props;
   const pos = `${x}_${y}`;
@@ -30,7 +33,7 @@ export const Cell: FC<CellProps> = (props) => {
 
         setHoveredCell(fieldData[pos]);
 
-        const ship = getShip4(pos, { fieldData, shipOrientation });
+        const ship = calcShip(pos, { fieldData, shipOrientation, shipSize: SHIPS[shipIndex] });
 
         if (typeof ship !== 'boolean') {
           const overlayedShip = getOverlayedShip(ship, fieldData);
@@ -50,6 +53,7 @@ export const Cell: FC<CellProps> = (props) => {
 
         setCells(lastHoveredShipPlace(lastHoveredShip));
         setLastHoveredShip(null);
+        setNextShip();
       }}
     >
       <div className={cn(styles.circle, styles[`circle_${fieldData[pos].state}`])} />
